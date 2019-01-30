@@ -26,7 +26,7 @@ public class App
 
         port(getHerokuAssignedPort());
 
-        get("/", (req, res) -> "Hello, World of Yours");
+        get("/", (req, res) -> "Hello, World of Yours!");
 
         post("/compute", (req, res) -> {
           //System.out.println(req.queryParams("input1"));
@@ -34,7 +34,7 @@ public class App
 
           String input1 = req.queryParams("input1");
           java.util.Scanner sc1 = new java.util.Scanner(input1);
-          sc1.useDelimiter("[;\r\n$]+");
+          sc1.useDelimiter("[;\r\n]+");
           java.util.ArrayList<Integer> inputList = new java.util.ArrayList<Integer>();
           while (sc1.hasNext())
           {
@@ -53,6 +53,8 @@ public class App
           }
 
           String input2 = req.queryParams("input2").replaceAll("\\s","");
+          java.util.Scanner sc2 = new java.util.Scanner(input2);
+          sc2.useDelimiter("[;\r\n]+");
           String[] strArray = new String[25];
           index = 0;
           while(sc1.hasNext())
@@ -72,7 +74,7 @@ public class App
           String[] result = App.meaningfulComputation(inputIntegerArray,inputList,strArray,boolArray);
 
          Map map = new HashMap();
-          map.put("result", result[0]);
+          map.put("result", "hello");
           return new ModelAndView(map, "compute.mustache");
         }, new MustacheTemplateEngine());
 
