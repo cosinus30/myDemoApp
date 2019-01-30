@@ -74,7 +74,7 @@ public class App
           String[] result = App.meaningfulComputation(inputIntegerArray,inputList,strArray,boolArray);
 
          Map map = new HashMap();
-          map.put("result", result.toString());
+          map.put("result", result[1]);
           return new ModelAndView(map, "compute.mustache");
         }, new MustacheTemplateEngine());
 
