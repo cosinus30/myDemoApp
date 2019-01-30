@@ -26,7 +26,7 @@ public class App
 
         port(getHerokuAssignedPort());
 
-        get("/", (req, res) -> "Hello, World");
+        get("/", (req, res) -> "Hello, World of Yours");
 
         post("/compute", (req, res) -> {
           //System.out.println(req.queryParams("input1"));
@@ -34,7 +34,7 @@ public class App
 
           String input1 = req.queryParams("input1");
           java.util.Scanner sc1 = new java.util.Scanner(input1);
-          sc1.useDelimiter("[;\r\n]+");
+          sc1.useDelimiter("[;\r\n$]+");
           java.util.ArrayList<Integer> inputList = new java.util.ArrayList<Integer>();
           while (sc1.hasNext())
           {
@@ -42,12 +42,34 @@ public class App
             inputList.add(value);
           }
           System.out.println(inputList);
-
+          
+          Integer[] inputIntegerArray = new Integer[25];
+          int index = 0;
+          while(sc1.hasNext())
+          {
+            int value = Integer.parseInt(sc1.next().replaceAll("\\s",""));
+            inputIntegerArray[index] = value;
+            index++;
+          }
 
           String input2 = req.queryParams("input2").replaceAll("\\s","");
-          int input2AsInt = Integer.parseInt(input2);
+          String[] strArray = new String[25];
+          index = 0;
+          while(sc1.hasNext())
+          {
+            strArray[index] = sc1.next().replaceAll("\\s","");
+            index++;
+          }
 
-          boolean result = App.search(inputList, input2AsInt);
+          boolean[] boolArray = new boolean[25];
+          index = 0;
+          while(sc1.hasNext())
+          {
+            boolArray[index] = Boolean.parseBoolean(sc1.next().replaceAll("\\s", ""));
+            index++;
+          }
+
+          String[] result = App.meaningfulComputation(inputIntegerArray,inputList,strArray,boolArray);
 
          Map map = new HashMap();
           map.put("result", result);
