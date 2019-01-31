@@ -10,6 +10,8 @@ import static spark.Spark.post;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.lang.model.util.ElementScanner6;
+
 import spark.ModelAndView;
 import spark.template.mustache.MustacheTemplateEngine;
 
@@ -22,7 +24,7 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        System.out.println( "Hello World!!!!!" );
 
         port(getHerokuAssignedPort());
 
@@ -36,14 +38,20 @@ public class App
           java.util.Scanner sc1 = new java.util.Scanner(input1);
           sc1.useDelimiter("[;\r\n]+");
           java.util.ArrayList<Integer> inputList = new java.util.ArrayList<Integer>();
+
           while (sc1.hasNext())
           {
-            int value = Integer.parseInt(sc1.next().replaceAll("\\s",""));
-            inputList.add(value);
+            String temp = sc1.next().replaceAll("\\s", "");
+            if(!temp.equals("$"))
+            {
+              int value = Integer.parseInt(temp);
+              inputList.add(value);
+            }
+            else
+              break;
           }
-          System.out.println(inputList);
           
-          Integer[] inputIntegerArray = new Integer[25];
+          Integer[] inputIntegerArray = new Integer[4];
           int index = 0;
           while(sc1.hasNext())
           {
@@ -52,30 +60,40 @@ public class App
             index++;
           }
 
-          String input2 = req.queryParams("input2").replaceAll("\\s","");
+          String input2 = req.queryParams("input2");
           java.util.Scanner sc2 = new java.util.Scanner(input2);
           sc2.useDelimiter("[;\r\n]+");
-          String[] strArray = new String[25];
+          String[] strArray = new String[4];
           index = 0;
-          while(sc1.hasNext())
+          while(sc2.hasNext())
           {
-            strArray[index] = sc1.next().replaceAll("\\s","");
-            index++;
+            String temp = sc2.next();
+            if(temp.equals("$"))
+            {
+              break; 
+            }
+            else{
+              strArray[index] = temp;
+              index++;
+            }    
           }
 
-          boolean[] boolArray = new boolean[25];
+          boolean[] boolArray = new boolean[4];
           index = 0;
-          while(sc1.hasNext())
+          while(sc2.hasNext())
           {
-            boolArray[index] = Boolean.parseBoolean(sc1.next().replaceAll("\\s", ""));
+            boolArray[index] = Boolean.parseBoolean(sc2.next().replaceAll("\\s", ""));
             index++;
           }
+        Map<String,String> map = new HashMap<String,String>();
 
-          String[] result = App.meaningfulComputation(inputIntegerArray,inputList,strArray,boolArray);
-
-         Map map = new HashMap();
-          map.put("result", result[1]);
-          return new ModelAndView(map, "compute.mustache");
+        String[] result = App.meaningfulComputation(inputIntegerArray,inputList,strArray,boolArray);
+        
+        if(result != null)
+         map.put("result", result[0] + result[1] + result[2] + result[3]);
+        else
+          map.put("result","uncoputable due to errors!\nInput: 4 integer $ 4 integer for box 1, 4 Strings $ 4 boolean for box 2");
+        return new ModelAndView(map, "compute.mustache");
         }, new MustacheTemplateEngine());
 
 
