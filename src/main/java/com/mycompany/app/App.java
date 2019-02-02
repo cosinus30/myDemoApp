@@ -24,7 +24,7 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!!!!!" );
+        System.out.println( "Hello World!!!!!!!" );
 
         port(getHerokuAssignedPort());
 
@@ -34,65 +34,56 @@ public class App
           //System.out.println(req.queryParams("input1"));
           //System.out.println(req.queryParams("input2"));
 
+
           String input1 = req.queryParams("input1");
           java.util.Scanner sc1 = new java.util.Scanner(input1);
           sc1.useDelimiter("[;\r\n]+");
           java.util.ArrayList<Integer> inputList = new java.util.ArrayList<Integer>();
-
           while (sc1.hasNext())
           {
-            String temp = sc1.next().replaceAll("\\s", "");
-            if(!temp.equals("$"))
-            {
-              int value = Integer.parseInt(temp);
-              inputList.add(value);
-            }
-            else
-              break;
-          }
+            inputList.add(Integer.parseInt(sc1.next().replaceAll("\\s","")));
+          }//End of input1 process!
           
-          Integer[] inputIntegerArray = new Integer[4];
-          int index = 0;
-          while(sc1.hasNext())
-          {
-            int value = Integer.parseInt(sc1.next().replaceAll("\\s",""));
-            inputIntegerArray[index] = value;
-            index++;
-          }
-
           String input2 = req.queryParams("input2");
           java.util.Scanner sc2 = new java.util.Scanner(input2);
           sc2.useDelimiter("[;\r\n]+");
-          String[] strArray = new String[4];
-          index = 0;
+          ArrayList<Integer> inputIntegerArray = new ArrayList<Integer>();
           while(sc2.hasNext())
           {
-            String temp = sc2.next();
-            if(temp.equals("$"))
-            {
-              break; 
-            }
-            else{
-              strArray[index] = temp;
-              index++;
-            }    
+            inputIntegerArray.add(Integer.parseInt(sc2.next().replaceAll("\\s","")));
           }
 
-          boolean[] boolArray = new boolean[4];
-          index = 0;
-          while(sc2.hasNext())
+          String input3 = req.queryParams("input3");
+          java.util.Scanner sc3 = new java.util.Scanner(input3);
+          sc3.useDelimiter("[;\r\n]+");
+          ArrayList<String> strArray = new ArrayList<String>();
+          while(sc3.hasNext())
           {
-            boolArray[index] = Boolean.parseBoolean(sc2.next().replaceAll("\\s", ""));
-            index++;
-          }
+            strArray.add(sc3.next().replaceAll("\\s", ""));
+          }  //End of input3 process!
+
+          String input4 = req.queryParams("input4");
+          java.util.Scanner sc4 = new java.util.Scanner(input4);
+          sc4.useDelimiter("[;\r\n]+");
+          ArrayList<Boolean> boolArray = new ArrayList<Boolean>();
+          while(sc4.hasNext())
+          {
+            boolArray.add(Boolean.parseBoolean(sc4.next().replaceAll("\\s", "")));
+          }//End of input4 process!
+
         Map<String,String> map = new HashMap<String,String>();
 
-        String[] result = App.meaningfulComputation(inputIntegerArray,inputList,strArray,boolArray);
+        ArrayList<String> result = App.meaningfulComputation(inputIntegerArray,inputList,strArray,boolArray);
+        String sum = "";
         
-        if(result != null)
-         map.put("result", result[0] + result[1] + result[2] + result[3]);
-        else
-          map.put("result","uncoputable due to errors!\nInput: 4 integer $ 4 integer for box 1, 4 Strings $ 4 boolean for box 2");
+        if(result.size() != 0 && result != null){
+          for(int i = 0 ;i < result.size() ; i++)
+            sum += result.get(i); 
+          map.put("result", sum);
+        }
+        else{
+          map.put("result","uncoputable! form1&2:Integer, form3:String, form4:boolean. All form's set size must be equal!");
+        }
         return new ModelAndView(map, "compute.mustache");
         }, new MustacheTemplateEngine());
 
@@ -125,26 +116,26 @@ public class App
       }
   
 
-    public static String[] meaningfulComputation(Integer[] intArray, ArrayList<Integer> intArrayList, String[] strArray, boolean[] addOrNot){
+    public static ArrayList<String>meaningfulComputation(ArrayList<Integer> intArray, ArrayList<Integer> intArrayList, ArrayList<String> strArray, ArrayList<Boolean> addOrNot){
         int littleOne = 0, bigOne = 0;
         if(intArray == null || intArrayList == null || strArray == null || addOrNot == null)
           return null;
         //Length of integer array,length of list and length of boolean array must be equal.
         //Length of array and list must be either equal to or greater than length of strArray.
-        if(intArray.length != intArrayList.size()|| intArray.length != addOrNot.length || intArray.length < strArray.length)
+        if(intArray.size() != intArrayList.size()|| intArray.size() != addOrNot.size() || intArray.size() < strArray.size())
           return null;
-        for(int i = 0; i < strArray.length; i++){
-          if(intArray[i] <= intArrayList.get(i) ){
-            littleOne = intArray[i];
+        for(int i = 0; i < strArray.size(); i++){
+          if(intArray.get(i) <= intArrayList.get(i) ){
+            littleOne = intArray.get(i);
             bigOne = intArrayList.get(i);
           }
           else{
             littleOne = intArrayList.get(i) ;
-            bigOne = intArray[i];
+            bigOne = intArray.get(i);
           }
         for (int j = 0; j < littleOne; j++){
-            if(addOrNot[i])
-                strArray[i] += "" + bigOne;
+            if(addOrNot.get(i))
+                strArray.set(i, strArray.get(i) + "" + bigOne);
         }
         }
         return strArray;

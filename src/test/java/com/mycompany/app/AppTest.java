@@ -42,88 +42,82 @@ public class AppTest
     public void testNullStringArrayObject()
     {
         App obj = new App();
-        Integer[] intArray = {1,2,3,4};
+        ArrayList<Integer> intArray = new ArrayList<Integer>(Arrays.asList(1,2,3,4));
         ArrayList<Integer> intArrayList = new ArrayList<Integer>(Arrays.asList(1,2,3,4));
-        boolean[] boolList = {false,false,false,false};
-        String[] strArray = null;
-        String [] ans = obj.meaningfulComputation(intArray, intArrayList, strArray, boolList);
+        ArrayList<Boolean> boolList = new ArrayList<Boolean>(Arrays.asList(false,false,false,false));
+        ArrayList<String> strArray = null;
+        ArrayList<String> ans = obj.meaningfulComputation(intArray, intArrayList, strArray, boolList);
         assertEquals(null, ans);
     }
 
     public void testNullIntegerArrayObject()
     {
         App obj = new App();
-        Integer[] intArray = null;
+        ArrayList<Integer> intArray = null;
         ArrayList<Integer> intArrayList = new ArrayList<Integer>(Arrays.asList(1,2,3,4));
-        boolean[] boolList = {false,false,false,false};
-        String[] strArray = {"abc","dfe","ghi","jkl"};
-        String [] ans = obj.meaningfulComputation(intArray, intArrayList, strArray, boolList);
+        ArrayList<Boolean> boolList = new ArrayList<Boolean>(Arrays.asList(false,false,false,false));
+        ArrayList<String> strArray = new ArrayList<String>(Arrays.asList("abc","def","ghe","jkl"));
+        ArrayList<String> ans = obj.meaningfulComputation(intArray, intArrayList, strArray, boolList);
         assertEquals(null, ans);
     }
     public void testNullBooleanArrayObject()
     {
         App obj = new App();
-        Integer[] intArray = {1,2,3,4};
-        ArrayList<Integer> intArrayList = null;
-        boolean[] boolList = null;
-        String[] strArray = {"abc","dfe","ghi","jkl"};
-        String [] ans = obj.meaningfulComputation(intArray, intArrayList, strArray, boolList);
+        ArrayList<Integer> intArray = new ArrayList<Integer>(Arrays.asList(1,2,3,4));
+        ArrayList<Integer> intArrayList = new ArrayList<Integer>(Arrays.asList(1,2,3,4));
+        ArrayList<Boolean> boolList =null;
+        ArrayList<String> strArray = new ArrayList<String>(Arrays.asList("abc","def","ghe","jkl"));
+        ArrayList<String> ans = obj.meaningfulComputation(intArray, intArrayList, strArray, boolList);
         assertEquals(null, ans);
     }
 
     public void testNullIntegerArrayListObject()
     {
         App obj = new App();
-        Integer[] intArray = {1,2,3,4};
+        ArrayList<Integer> intArray = new ArrayList<Integer>(Arrays.asList(1,2,3,4));
         ArrayList<Integer> intArrayList = null;
-        boolean[] boolList = {false,false,false,false};
-        String[] strArray = {"abc","dfe","ghi","jkl"};
-        String [] ans = obj.meaningfulComputation(intArray, intArrayList, strArray, boolList);
+        ArrayList<Boolean> boolList = new ArrayList<Boolean>(Arrays.asList(false,false,false,false));
+        ArrayList<String> strArray = new ArrayList<String>(Arrays.asList("abc","def","ghe","jkl"));
+        ArrayList<String> ans = obj.meaningfulComputation(intArray, intArrayList, strArray, boolList);
         assertEquals(null, ans);
     }
 
     public void testAreLengthOfObjectsNotEqual()
     {
         App obj = new App();
-        Integer[] intArray = {1,2,3,4,5};
+        ArrayList<Integer> intArray = new ArrayList<Integer>(Arrays.asList(1,2,3,4,5));
         ArrayList<Integer> intArrayList = new ArrayList<Integer>(Arrays.asList(1,2,3,4));
-        boolean[] boolList = {false,false,false,false};
-        String[] strArray = {"abc","dfe","ghi","jkl"};
-        String [] ans = obj.meaningfulComputation(intArray, intArrayList, strArray, boolList);
+        ArrayList<Boolean> boolList = new ArrayList<Boolean>(Arrays.asList(false,false,false,false));
+        ArrayList<String> strArray = new ArrayList<String>(Arrays.asList("abc","def","ghe","jkl"));
+        ArrayList<String> ans = obj.meaningfulComputation(intArray, intArrayList, strArray, boolList);
         assertEquals(null, ans);
     }
 
     public void testAreLengthOfObjectsEqual()
     {
         App obj = new App();
-        Integer[] intArray = {1,2,3,4};
+        ArrayList<Integer> intArray = new ArrayList<Integer>(Arrays.asList(1,2,3,4));
         ArrayList<Integer> intArrayList = new ArrayList<Integer>(Arrays.asList(1,2,3,4));
-        boolean[] boolList = {false,false,false,false};
-        String[] strArray = {"abc","dfe","ghi","jkl"};
-        String [] ans = obj.meaningfulComputation(intArray, intArrayList, strArray, boolList);
+        ArrayList<Boolean> boolList = new ArrayList<Boolean>(Arrays.asList(false,false,false,false));
+        ArrayList<String> strArray = new ArrayList<String>(Arrays.asList("abc","def","ghe","jkl"));
+        ArrayList<String> ans = obj.meaningfulComputation(intArray, intArrayList, strArray, boolList);
         assertEquals(strArray, ans);
-    }
-
-    public void testExpectedOutputWhileAdditionIsOff(){
-        App obj = new App();
-        Integer[] intArray = {5,6,7,8};
-        ArrayList<Integer> intArrayList = new ArrayList<Integer>(Arrays.asList(1,2,3,4));
-        boolean[] boolList = {false,false,false,false};
-        String[] strArray = {"abc","dfe","ghi","jkl"};
-        String[] expectedOutput = {"abc","dfe","ghi","jkl"};
-        String [] ans = obj.meaningfulComputation(intArray, intArrayList, strArray, boolList);
-        assertTrue(Arrays.equals(expectedOutput, ans));
     }
 
     public void testExpectedOutputWhileAdditionIsOn(){
         App obj = new App();
-        Integer[] intArray = {5,6,7,8};
+        ArrayList<Integer> intArray = new ArrayList<Integer>(Arrays.asList(5,6,7,8));
         ArrayList<Integer> intArrayList = new ArrayList<Integer>(Arrays.asList(1,2,3,4));
-        boolean[] boolList = {true,true,true,true};
-        String[] strArray = {"abc","dfe","ghi","jkl"};
-        String[] expectedOutput = {"abc5","dfe66","ghi777","jkl8888"};
-        String [] ans = obj.meaningfulComputation(intArray, intArrayList, strArray, boolList);
-        assertTrue(Arrays.equals(expectedOutput, ans));
+        ArrayList<Boolean> boolList = new ArrayList<Boolean>(Arrays.asList(true,true,true,true));
+        ArrayList<String> strArray = new ArrayList<String>(Arrays.asList("abc","def","ghe","jkl"));
+        ArrayList<String> expectedOutput = new ArrayList<String>(Arrays.asList("abc5","def66","ghe777","jkl8888"));
+        ArrayList<String> ans = obj.meaningfulComputation(intArray, intArrayList, strArray, boolList);
+        String sumTrue = "", sumAns = "";
+        for (int i = 0; i < expectedOutput.size(); i++){
+            sumTrue += expectedOutput.get(i);
+            sumAns += ans.get(i);
+        }
+        assertTrue(sumTrue.equals(sumAns));
     }
 
 }
